@@ -2,8 +2,8 @@ name: Context Variables Test
 
 # Trigger on push, pull request, and workflow_dispatch for manual runs
 on:
-  # push:
-  #   branches: ["*"]
+  push:
+    branches: ["*"]
   pull_request:
     branches: ["main"]
     types: [opened, closed]
