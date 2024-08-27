@@ -1,0 +1,43 @@
+name: Reusable Workflow
+
+on:
+  workflow_call:
+    inputs:
+      DATABASE_ENV:
+        description: 'The database environment (e.g., DEV, PRD)'
+        required: true
+        type: string
+
+jobs:
+  run-liquibase:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Print Database Environment
+        run: echo "The database environment is ${{ inputs.DATABASE_ENV }}"
+
+      - name: Configure Liquibase properties
+        run: |
+          echo "changeLogFile=db/changelog/db.changelog-master.xml" > liquibase.properties
+          echo "url=jdbc:snowflake://${{ secrets.SNOWFLAKE_ACCOUNT }}.snowflakecomputing.com/?db=${{ secrets.DATABASE_NAME }}&schema=${{ secrets.SCHEMA_NAME }}" >> liquibase.properties
+          echo "username=${{ secrets.SNOWFLAKE_USERNAME }}" >> liquibase.properties
+          echo "password=${{ secrets.SNOWFLAKE_PASSWORD }}" >> liquibase.properties
+          echo "driver=net.snowflake.client.jdbc.SnowflakeDriver" >> liquibase.properties
+
+      - name: Download Liquibase
+        run: |
+          wget https://github.com/liquibase/liquibase/releases/download/v4.8.0/liquibase-4.8.0.tar.gz
+          tar -xzf liquibase-4.8.0.tar.gz
+          sudo ln -s $PWD/liquibase /usr/local/bin/liquibase
+
+      - name: Setup Snowflake JDBC driver
+        run: |
+          wget https://repo1.maven.org/maven2/net/snowflake/snowflake-jdbc/3.13.3/snowflake-jdbc-3.13.3.jar
+          mkdir -p ~/.liquibase/lib
+          mv snowflake-jdbc-3.13.3.jar ~/.liquibase/lib/
+
+      - name: Run Liquibase update
+        run: liquibase update
