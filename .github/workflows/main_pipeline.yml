@@ -33,7 +33,7 @@ jobs:
 
   print-context-on-prd:
     runs-on: ubuntu-latest
-    if: ${{github.ref_name == "main"}}
+    if: ${{github.ref_name == 'main'}}
 
     steps:
       - name: Print GitHub Context Variables
