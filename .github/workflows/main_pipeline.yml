@@ -32,7 +32,7 @@ jobs:
           echo "Run ID: ${{ github.run_id }}"
           echo "Event Payload: ${{ toJson(github.event) }}"
 
-  print-context on prd:
+  print-context-on-prd:
     runs-on: ubuntu-latest
     if: ${{github.event.pull_request.merged == true}}
 
