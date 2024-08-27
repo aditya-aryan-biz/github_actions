@@ -30,11 +30,10 @@ jobs:
           echo "Job Name: ${{ github.job }}"
           echo "Run Number: ${{ github.run_number }}"
           echo "Run ID: ${{ github.run_id }}"
-          echo "Event Payload: ${{ toJson(github.event) }}"
 
   print-context-on-prd:
     runs-on: ubuntu-latest
-    if: ${{github.event.pull_request.merged == true}}
+    if: ${{github.ref_name == 'main'}}
 
     steps:
       - name: Print GitHub Context Variables
@@ -52,4 +51,3 @@ jobs:
           echo "Job Name: ${{ github.job }}"
           echo "Run Number: ${{ github.run_number }}"
           echo "Run ID: ${{ github.run_id }}"
-          echo "Event Payload: ${{ toJson(github.event) }}"
