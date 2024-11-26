@@ -17,7 +17,7 @@ jobs:
       - name: Set date to output
         id: set-date
         run: |
-          echo "current_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+          echo "current_date=$(date +%s)" >> $GITHUB_OUTPUT
 
       # Step to use the output
       - name: Print the date
