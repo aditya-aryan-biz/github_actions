@@ -31,7 +31,7 @@ jobs:
           echo "Job Name: ${{ github.job }}"
           echo "Run Number: ${{ github.run_number }}"
           echo "Run ID: ${{ github.run_id }}"
-          echo date +%s
+          echo "epoch = $(date +%s)"
 
   print-context-on-prd:
     runs-on: ubuntu-latest
