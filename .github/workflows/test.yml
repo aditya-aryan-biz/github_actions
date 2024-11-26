@@ -7,16 +7,19 @@ on:
   # pull_request:
   #   branches: ["main"]
   #   types: [closed]
-
   workflow_dispatch:
 
 jobs:
   set-date:
     runs-on: ubuntu-latest
     steps:
+      # Step to set the current date as an output
       - name: Set date to output
-        run: echo "current_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+        id: set-date
+        run: |
+          echo "current_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-            # Step to use the output
+      # Step to use the output
       - name: Print the date
         run: echo "The current date is ${{ steps.set-date.outputs.current_date }}"
+
