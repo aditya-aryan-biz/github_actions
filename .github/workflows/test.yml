@@ -1,0 +1,11 @@
+name: Add Date to GitHub Output
+
+on:
+  workflow_dispatch:
+
+jobs:
+  set-date:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set date to output
+        run: echo "current_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
