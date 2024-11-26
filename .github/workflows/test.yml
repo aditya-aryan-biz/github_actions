@@ -16,3 +16,7 @@ jobs:
     steps:
       - name: Set date to output
         run: echo "current_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+            # Step to use the output
+      - name: Print the date
+        run: echo "The current date is ${{ steps.set-date.outputs.current_date }}"
